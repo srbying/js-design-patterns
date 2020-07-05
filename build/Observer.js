@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ObserverPattern = void 0;
 var ObserverPattern = (function () {
     function ObserverPattern() {
         this.events = new Map();
@@ -16,12 +19,13 @@ var ObserverPattern = (function () {
         }
     };
     ObserverPattern.prototype.fire = function (name) {
-        var eventName = this.events.get(name);
-        if (!eventName) {
+        var events = this.events.get(name);
+        if (!events) {
             throw Error(name + " does not exist");
         }
-        eventName.forEach(function (event) { return event(); });
+        events.forEach(function (event) { return event(); });
     };
     return ObserverPattern;
 }());
+exports.ObserverPattern = ObserverPattern;
 //# sourceMappingURL=Observer.js.map

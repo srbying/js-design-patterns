@@ -3,7 +3,7 @@
     "extends": "tslint-config-standard",
     "jsRules": {},
     "rules": {
-      "ter-indent": [true, 4]
+      "ter-indent": [false]
     },
     "rulesDirectory": []
 }

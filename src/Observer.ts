@@ -25,7 +25,7 @@ export class ObserverPattern {
     if (!events) {
       throw Error(`${name} does not exist`)
     }
-    
+
     events.forEach((event) => event())
   }
 }
