@@ -43,4 +43,27 @@ describe('ArrayIterator', (): void => {
         expect(e).to.be.instanceOf(ReferenceError)
     }
   })
+
+  it('should remove item in array', () => {
+    let item: number = iterator.next()
+    let itemIdx: number = collection.indexOf(item)
+
+    expect(itemIdx).to.eql(0)
+
+    iterator.remove()
+    itemIdx = collection.indexOf(item)
+
+    expect(itemIdx).to.eql(-1)
+  })
+
+  it('should throw error when removing twice on same next call', () => {
+    try {
+        iterator.next()
+        iterator.remove()
+        iterator.remove()
+    } catch (e) {
+        expect(e).to.exist
+        expect(e.message).to.eql('The next method has not yet been called, or the remove method has already been called after the last call to the next method')
+    }
+  })
 })

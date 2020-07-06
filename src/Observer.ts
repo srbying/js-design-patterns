@@ -1,11 +1,13 @@
+type ObserverCallbackFn = () => void
+
 export class ObserverPattern {
-  private readonly events: Map<string, Set<() => void>>
+  private readonly events: Map<string, Set<ObserverCallbackFn>>
 
   constructor () {
     this.events = new Map()
   }
 
-  public subscribe (name: string, fn: () => void): void {
+  public subscribe (name: string, fn: ObserverCallbackFn): void {
     if (this.events.has(name)) {
       this.events.get(name).add(fn)
     } else {
@@ -13,7 +15,7 @@ export class ObserverPattern {
     }
   }
 
-  public unSubscribe (name: string, fn: () => void): void {
+  public unSubscribe (name: string, fn: ObserverCallbackFn): void {
     if (this.events.has(name)) {
       this.events.get(name).delete(fn)
     }

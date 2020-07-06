@@ -23,7 +23,7 @@ describe('Observer', (): void => {
   it('should fire callback', () => {
     observer.fire('test')
     expect(handlerSpy).to.have.been.calledOnce
-    
+
     observer.fire('test')
     expect(handlerSpy).to.have.been.calledTwice
 
