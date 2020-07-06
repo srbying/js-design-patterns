@@ -2,65 +2,65 @@ import 'mocha'
 import { expect, use } from 'chai'
 import * as Sinon from 'sinon'
 import * as SinonChai from 'sinon-chai'
-import { ObserverPattern } from '../src/Observer'
+import { PubSub } from '../src/PubSub'
 
 use(SinonChai)
 
-describe('Observer', (): void => {
-  let observer: ObserverPattern
+describe('PubSub', (): void => {
+  let pubSub: PubSub
   let handlerSpy: Sinon.SinonSpy
 
   beforeEach((): void => {
-    observer = new ObserverPattern()
+    pubSub = new PubSub()
     handlerSpy = Sinon.spy(() => {})
-    observer.subscribe('test', handlerSpy)
+    pubSub.subscribe('test', handlerSpy)
   })
 
   afterEach(() => {
-    observer.unSubscribe('test', handlerSpy)
+    pubSub.unSubscribe('test', handlerSpy)
   })
 
   it('should fire callback', () => {
-    observer.fire('test')
+    pubSub.fire('test')
     expect(handlerSpy).to.have.been.calledOnce
 
-    observer.fire('test')
+    pubSub.fire('test')
     expect(handlerSpy).to.have.been.calledTwice
 
-    observer.fire('test')
+    pubSub.fire('test')
     expect(handlerSpy).to.have.been.calledThrice
   })
 
   it('should fire multiple callbacks for one event', () => {
     let handlerSpyTwo: Sinon.SinonSpy = Sinon.spy(() => {})
 
-    observer.subscribe('test', handlerSpyTwo)
-    observer.fire('test')
+    pubSub.subscribe('test', handlerSpyTwo)
+    pubSub.fire('test')
     expect(handlerSpy).to.have.been.calledOnce
     expect(handlerSpyTwo).to.have.been.calledOnce
 
-    observer.unSubscribe('test', handlerSpy)
-    observer.fire('test')
+    pubSub.unSubscribe('test', handlerSpy)
+    pubSub.fire('test')
     expect(handlerSpy).to.have.been.calledOnce
     expect(handlerSpyTwo).to.have.been.calledTwice
 
-    observer.subscribe('test', handlerSpy)
-    observer.fire('test')
+    pubSub.subscribe('test', handlerSpy)
+    pubSub.fire('test')
     expect(handlerSpy).to.have.been.calledTwice
     expect(handlerSpyTwo).to.have.been.calledThrice
   })
 
   it('should not fire callback after unsubscribed', () => {
-    observer.fire('test')
+    pubSub.fire('test')
     expect(handlerSpy).to.have.been.calledOnce
-    observer.unSubscribe('test', handlerSpy)
+    pubSub.unSubscribe('test', handlerSpy)
     expect(handlerSpy).to.not.have.been.calledTwice
     expect(handlerSpy).to.have.been.calledOnce
   })
 
   it('throws error when no event is found when firing', () => {
     try {
-      observer.fire('testFake')
+      pubSub.fire('testFake')
     } catch (e) {
       expect(e).to.exist
       expect(handlerSpy).to.not.have.been.called

@@ -1,6 +1,6 @@
 type ObserverCallbackFn = () => void
 
-export class ObserverPattern {
+export class PubSub {
   private readonly events: Map<string, Set<ObserverCallbackFn>>
 
   constructor () {

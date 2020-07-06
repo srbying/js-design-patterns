@@ -1,10 +1,6 @@
 import 'mocha'
 import { expect, use } from 'chai'
-import * as Sinon from 'sinon'
-import * as SinonChai from 'sinon-chai'
 import { ArrayIterator } from '../src/Iterator'
-
-use(SinonChai)
 
 describe('ArrayIterator', (): void => {
   let iterator: ArrayIterator<number>
